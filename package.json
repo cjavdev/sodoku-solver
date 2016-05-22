@@ -17,7 +17,18 @@
   },
   "homepage": "https://github.com/w1zeman1p/sodoku-solver#readme",
   "dependencies": {
-    "jasmine-es6": "^0.1.10",
-    "lodash": "^4.12.0"
+    "jspm": "^0.16.34",
+    "systemjs": "^0.19.28"
+  },
+  "jspm": {
+    "dependencies": {
+      "jasmine-es6": "npm:jasmine-es6@^0.1.10",
+      "lodash": "npm:lodash@^4.12.0"
+    },
+    "devDependencies": {
+      "babel": "npm:babel-core@^5.8.24",
+      "babel-runtime": "npm:babel-runtime@^5.8.24",
+      "core-js": "npm:core-js@^1.1.4"
+    }
   }
 }

@@ -1,7 +1,20 @@
-// Given an incomplete board, construct nodes with the ability to find the
-// values from it's assigned square, row, and column.
+import _ from 'lodash';
+
 class Solve {
   constructor(board) {
     this.board = board;
   }
+
+  pass() {
+    var nods = this.board.generateNods();
+    _.each(nods, (nod) => {
+      if(nod.knownValue()) {
+        this.board.set(nod.pos, nod.knownValue());
+      }
+    });
+  }
 }
+
+module.exports = {
+  Solve: Solve
+};

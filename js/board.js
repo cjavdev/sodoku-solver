@@ -1,9 +1,10 @@
 import _ from 'lodash';
+import {Nod} from './nod.js';
 
 // has one of each number 1..9
 var ONE_TO_NINE =  _.times(9).map((n) => n + 1);
 
-function correctSet(set) {
+export function correctSet(set) {
   return '' + _.orderBy(set) == '' + ONE_TO_NINE;
 }
 
@@ -12,20 +13,12 @@ function full(set) {
 }
 
 function emptyGrid() {
-  return [
-    [null, null, null, null, null, null, null, null, null],
-    [null, null, null, null, null, null, null, null, null],
-    [null, null, null, null, null, null, null, null, null],
-    [null, null, null, null, null, null, null, null, null],
-    [null, null, null, null, null, null, null, null, null],
-    [null, null, null, null, null, null, null, null, null],
-    [null, null, null, null, null, null, null, null, null],
-    [null, null, null, null, null, null, null, null, null],
-    [null, null, null, null, null, null, null, null, null]
-  ];
+  return _.times(9).map(() => {
+    return _.times(9).map((n) => null);
+  });
 }
 
-function transpose(grid) {
+export function transpose(grid) {
   var result = [];
   for(var i = 0; i < grid.length; i++) {
     for(var j = 0; j < grid[i].length; j++) {
@@ -38,7 +31,7 @@ function transpose(grid) {
   return result;
 }
 
-class Board {
+export class Board {
   constructor(grid) {
     // make a deep copy of whatever grid was passed in...
     this.grid = _.map(grid || emptyGrid(), _.clone);
@@ -79,15 +72,30 @@ class Board {
     this.grid[x][y] = value;
   }
 
+  get(pos) {
+    var [x, y] = pos;
+    return this.grid[x][y];
+  }
+
   display() {
-    _.each(this.grid, function(row) {
+    var i = 0;
+    _.each(this.grid, (row) => {
+      if (i % 3 === 0) {
+        console.log('\n');
+        console.log('--- --- ---');
+      }
       console.log(row);
+      i++;
     });
   }
-}
 
-module.exports = {
-  correctSet: correctSet,
-  transpose: transpose,
-  Board: Board
-};
+  generateNods() {
+    var nods = [];
+    for(var i = 0; i < 9; i++) {
+      for(var j = 0; j < 9; j++) {
+        nods.push(new Nod(this, [i, j]));
+      }
+    }
+    return nods;
+  }
+}

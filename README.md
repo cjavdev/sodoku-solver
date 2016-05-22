@@ -13,3 +13,9 @@ Running the tests:
 ```sh
 $ npm test
 ```
+
+Run the app with:
+
+```sh
+$ jspm run app
+```
