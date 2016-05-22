@@ -1,4 +1,4 @@
-# Simple Sodoku solver
+# Simple Sudoku solver
 
 (assumes node v6+)
 
