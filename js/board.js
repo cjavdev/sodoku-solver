@@ -1,28 +1,14 @@
 import _ from 'lodash';
 
-function full(set) {
-  return _.compact(set).length === 9;
-}
-
+// has one of each number 1..9
 var ONE_TO_NINE =  _.times(9).map((n) => n + 1);
 
-// has one of each number 1..9
 function correctSet(set) {
-  console.log('correctSet', set);
-  return '' + set == '' + ONE_TO_NINE;
+  return '' + _.orderBy(set) == '' + ONE_TO_NINE;
 }
 
-function transpose(grid) {
-  var result = [];
-  for(var i = 0; i < grid.length; i++) {
-    for(var j = 0; j < grid[i].length; j++) {
-      if(!result[j]) {
-        result[j] = [];
-      }
-      result[j][i] = grid[i][j];
-    }
-  }
-  return result;
+function full(set) {
+  return _.compact(set).length === 9;
 }
 
 function emptyGrid() {
@@ -39,9 +25,23 @@ function emptyGrid() {
   ];
 }
 
+function transpose(grid) {
+  var result = [];
+  for(var i = 0; i < grid.length; i++) {
+    for(var j = 0; j < grid[i].length; j++) {
+      if(!result[j]) {
+        result[j] = [];
+      }
+      result[j][i] = grid[i][j];
+    }
+  }
+  return result;
+}
+
 class Board {
   constructor(grid) {
-    this.grid = grid || emptyGrid();
+    // make a deep copy of whatever grid was passed in...
+    this.grid = _.map(grid || emptyGrid(), _.clone);
   }
 
   complete() {
@@ -49,7 +49,7 @@ class Board {
   }
 
   correct() {
-    if(!this.complete()) {
+    if (!this.complete()) {
       return false;
     }
     return _.every(this.rows(), correctSet) && _.every(this.cols(), correctSet);
@@ -66,8 +66,8 @@ class Board {
   squareAt(corner) {
     var [x, y] = corner;
     var result = [];
-    for(var i = x; i < 3; i++) {
-      for(var j = y; j < 3; j++) {
+    for(var i = x; i < x + 3; i++) {
+      for(var j = y; j < y + 3; j++) {
         result.push(this.grid[i][j]);
       }
     }
@@ -78,43 +78,16 @@ class Board {
     var [x, y] = pos;
     this.grid[x][y] = value;
   }
-}
 
-class Nod {
-  constructor(board, pos) {
-    this.pos = pos;
-    this.row = pos[0];
-    this.col = pos[1];
-    this.board = board;
-  }
-
-  rowVals() {
-    return _.compact(this.board.rows()[this.row]);
-  }
-
-  colVals() {
-    return _.compact(this.board.cols()[this.col]);
-  }
-
-  squareVals() {
-    // (row / 3) * 3 is the corner
-    var rowCorner = parseInt(this.row / 3) * 3;
-    var colCorner = parseInt(this.row / 3) * 3;
-    return _.compact(this.board.squareAt([rowCorner, colCorner]));
-  }
-}
-
-// Given an incomplete board, construct nodes with the ability to find the
-// values from it's assigned square, row, and column.
-class Solve {
-  constructor(board) {
-    this.board = board;
+  display() {
+    _.each(this.grid, function(row) {
+      console.log(row);
+    });
   }
 }
 
 module.exports = {
   correctSet: correctSet,
   transpose: transpose,
-  Board: Board,
-  Nod: Nod,
+  Board: Board
 };

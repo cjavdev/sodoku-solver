@@ -12,7 +12,7 @@
 //  6 9 5 |4 1 7 |3 8 2
 
 import _ from 'lodash';
-import {correctSet, transpose, Board, Nod} from '../js/board.js';
+import {correctSet, transpose, Board} from '../js/board.js';
 
 var COMPLETE_BOARD = [
   [4, 8, 3, 9, 2, 1, 6, 5, 7],
@@ -51,14 +51,15 @@ describe('Utils', function() {
 });
 
 describe('Given a sodoku board', function () {
-  it('correctly identifies incorrect boards', function() {
+  it('correctly identifies correct boards', function() {
     var board = new Board(COMPLETE_BOARD);
-    expect(board.correct()).toBe(false);
+    expect(board.correct()).toBe(true);
   });
 
   it('correctly identifies incorrect boards', function() {
     var board = new Board(COMPLETE_BOARD);
-    expect(board.correct()).toBe(true);
+    board.set([0, 0], null);
+    expect(board.correct()).toBe(false);
   });
 
   it('correctly identifies complete boards', function() {
@@ -80,42 +81,9 @@ describe('Given a sodoku board', function () {
     expect(board.complete()).toBe(false);
   });
 
-});
-
-describe('Nod', function() {
-  it('knows the list of numbers in an empty row', function () {
-    var board = new Board();
-    var nod = new Nod(board, [0, 0]);
-    var rowVals = nod.rowVals();
-    expect(rowVals).toEqual([]);
-  });
-
-  it('knows the list of numbers in a non-empty row', function () {
-    var board = new Board();
-    board.set([0, 1], 1);
-    board.set([0, 7], 2);
-    board.set([0, 8], 9);
-    var nod = new Nod(board, [0, 0]);
-    var rowVals = nod.rowVals();
-    expect(rowVals).toEqual([1, 2, 9]);
-  });
-
-  it('knows the list of numbers in a non-empty row', function () {
-    var board = new Board();
-    board.set([1, 0], 1);
-    board.set([7, 0], 2);
-    board.set([8, 0], 7);
-    var nod = new Nod(board, [0, 0]);
-    var vals = nod.colVals();
-    expect(vals).toEqual([1, 2, 7]);
-  });
-
-  it('knows the list of numbers in a non-empty row', function () {
-    var board = new Board();
-    board.set([1, 0], 1);
-    board.set([0, 1], 2);
-    var nod = new Nod(board, [0, 0]);
-    var vals = _.orderBy(nod.squareVals());
-    expect(vals).toEqual([1, 2]);
+  it('can return square given a corner', function() {
+    var board = new Board(COMPLETE_BOARD);
+    expect(board.squareAt([0, 0])).toEqual([4, 8, 3, 9, 6, 7, 2, 5, 1]);
+    expect(board.squareAt([3, 3])).toEqual([1, 3, 2, 5, 6, 4, 7, 9, 8]);
   });
 });
