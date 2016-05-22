@@ -1,8 +1,8 @@
 import _ from 'lodash';
 import {Nod} from './nod.js';
 
-// has one of each number 1..9
-var ONE_TO_NINE =  _.times(9).map((n) => n + 1);
+// An array of each number 1..9
+var ONE_TO_NINE = _.times(9).map((n) => n + 1);
 
 export function correctSet(set) {
   return '' + _.orderBy(set) == '' + ONE_TO_NINE;
@@ -49,7 +49,7 @@ export class Board {
   }
 
   rows() {
-    return _.compact(this.grid);
+    return this.grid;
   }
 
   cols() {
@@ -77,14 +77,30 @@ export class Board {
     return this.grid[x][y];
   }
 
+  numEmptySquares() {
+    return _.countBy(_.flatten(this.grid))[null]
+  }
+
   display() {
     var i = 0;
     _.each(this.grid, (row) => {
+      var line = '|';
+      var j = 1;
+      _.each(row, (el) => {
+        if (el === null) {
+          line += '   ';
+        } else {
+          line += ' ' + el + ' ';
+        }
+        if (j % 3 === 0) {
+          line += '|';
+        }
+        j += 1
+      })
       if (i % 3 === 0) {
-        console.log('--- --- ---');
+        console.log('  ---------------------------');
       }
-      row = _.map(row, (s) => s ? s : '');
-      console.log(row);
+      console.log(line);
       i++;
     });
   }
