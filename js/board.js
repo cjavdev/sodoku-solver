@@ -81,9 +81,9 @@ export class Board {
     var i = 0;
     _.each(this.grid, (row) => {
       if (i % 3 === 0) {
-        console.log('\n');
         console.log('--- --- ---');
       }
+      row = _.map(row, (s) => s ? s : '');
       console.log(row);
       i++;
     });

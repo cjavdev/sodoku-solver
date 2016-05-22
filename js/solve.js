@@ -1,6 +1,6 @@
 import _ from 'lodash';
 
-class Solve {
+export class Solve {
   constructor(board) {
     this.board = board;
   }
@@ -14,7 +14,3 @@ class Solve {
     });
   }
 }
-
-module.exports = {
-  Solve: Solve
-};
