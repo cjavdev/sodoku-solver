@@ -56,6 +56,7 @@ export class Board {
     return transpose(this.grid);
   }
 
+  // Array of values of a subsquare given coordinates of the top left corner
   squareAt(corner) {
     var [x, y] = corner;
     var result = [];
@@ -75,6 +76,16 @@ export class Board {
   get(pos) {
     var [x, y] = pos;
     return this.grid[x][y];
+  }
+
+  generateNods() {
+    var nods = [];
+    for(var i = 0; i < 9; i++) {
+      for(var j = 0; j < 9; j++) {
+        nods.push(new Nod(this, [i, j]));
+      }
+    }
+    return nods;
   }
 
   numEmptySquares() {
@@ -103,15 +114,5 @@ export class Board {
       console.log(line);
       i++;
     });
-  }
-
-  generateNods() {
-    var nods = [];
-    for(var i = 0; i < 9; i++) {
-      for(var j = 0; j < 9; j++) {
-        nods.push(new Nod(this, [i, j]));
-      }
-    }
-    return nods;
   }
 }

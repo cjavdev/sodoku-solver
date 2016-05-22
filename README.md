@@ -17,5 +17,5 @@ $ npm test
 Run the app with:
 
 ```sh
-$ jspm run app
+$ jspm run app.js
 ```

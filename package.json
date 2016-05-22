@@ -1,7 +1,7 @@
 {
   "name": "sodoku",
   "version": "1.0.0",
-  "description": "",
+  "description": "Sudoku solver in js",
   "main": "index.js",
   "scripts": {
     "test": "./node_modules/jasmine-es6/bin/jasmine.js spec/*"
@@ -10,7 +10,7 @@
     "type": "git",
     "url": "git+https://github.com/w1zeman1p/sodoku-solver.git"
   },
-  "author": "",
+  "author": "CJ Avilla",
   "license": "ISC",
   "bugs": {
     "url": "https://github.com/w1zeman1p/sodoku-solver/issues"
@@ -30,5 +30,8 @@
       "babel-runtime": "npm:babel-runtime@^5.8.24",
       "core-js": "npm:core-js@^1.1.4"
     }
+  },
+  "devDependencies": {
+    "jasmine-es6": "^0.1.10"
   }
 }
