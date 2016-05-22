@@ -1,0 +1,23 @@
+{
+  "name": "sodoku",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/w1zeman1p/sodoku-solver.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/w1zeman1p/sodoku-solver/issues"
+  },
+  "homepage": "https://github.com/w1zeman1p/sodoku-solver#readme",
+  "dependencies": {
+    "jasmine-es6": "^0.1.10",
+    "lodash": "^4.12.0"
+  }
+}
